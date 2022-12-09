@@ -24,7 +24,7 @@
     <tr><td>한줄평</td><td><input type="text" name="evaluation"/></td></tr>
     <tr><td>사진</td><td><input type="text" name="picture"/></td></tr>
 </table>
-<button type="button" onclick="location.href=list">취소</button>
+<button type="button" onclick="location.href='list'">취소</button>
 <button type="submit">식당추가</button>
 </body>
 </html>

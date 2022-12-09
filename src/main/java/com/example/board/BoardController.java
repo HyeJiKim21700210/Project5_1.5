@@ -14,7 +14,7 @@ import java.util.Date;
 //@RequestMapping(value="/board")
 public class BoardController {
     @Autowired
-    BoardDAO boardDAO;
+    BoardService boardService;
 
     @RequestMapping(value = "/")
     public String home(Model model){
@@ -29,7 +29,7 @@ public class BoardController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String boardlist(Model model){
-        model.addAttribute("list", boardDAO.getBoardList());
+        model.addAttribute("list", boardService.getBoardList());
         System.out.println(model.getAttribute("list"));
         return "list";
     }
@@ -41,7 +41,7 @@ public class BoardController {
 
     @RequestMapping(value = "/addok", method = RequestMethod.POST)
     public String addPostOK(BoardVO vo){
-        if(boardDAO.insertBoard(vo) == 0)
+        if(boardService.insertBoard(vo) == 0)
             System.out.println("데이터 추가 실패");
         else
             System.out.println("데이터 추가 성공!!");
@@ -50,14 +50,14 @@ public class BoardController {
 
     @RequestMapping(value = "/editform/{seq}", method = RequestMethod.GET)
     public String editPost(@PathVariable("seq") int seq, Model model){ //id를 seq로 바꿨음
-        BoardVO boardVO = boardDAO.getBoard(seq);
+        BoardVO boardVO = boardService.getBoard(seq);
         model.addAttribute("u", boardVO);
         return "editform";
     }
 
     @RequestMapping(value = "/editok", method = RequestMethod.POST)
     public String editPostOK(BoardVO vo){
-        if(boardDAO.updateBoard(vo) == 0)
+        if(boardService.updateBoard(vo) == 0)
             System.out.println("데이터 수정 실패");
         else
             System.out.println("데이터 수정 성공!!!");
@@ -66,7 +66,7 @@ public class BoardController {
 
     @RequestMapping(value = "/deleteok/{seq}", method = RequestMethod.GET)
     public String deletePostOk(@PathVariable("seq") int seq){
-        if(boardDAO.deleteBoard(seq) == 0)
+        if(boardService.deleteBoard(seq) == 0)
             System.out.println("데이터 삭제 실패");
         else
             System.out.println("데이터 삭제 성공!!!");
